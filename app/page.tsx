@@ -1,7 +1,15 @@
+import FileList from "./file-list";
+import FileUpload from "./file-upload";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hellow!
+    <main
+      style={{
+        padding: "24px",
+      }}
+    >
+      <FileUpload />
+      <FileList />
     </main>
   );
 }

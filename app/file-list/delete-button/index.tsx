@@ -3,6 +3,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import { TrashIcon } from "@radix-ui/react-icons";
 
@@ -14,8 +25,6 @@ export default function DeleteButton({ url }: IProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const router = useRouter();
-
-  const openModal = () => {};
 
   const handleDelete = async () => {
     try {
@@ -35,9 +44,28 @@ export default function DeleteButton({ url }: IProps) {
 
   return (
     <div>
-      <Button onClick={handleDelete} variant="outline" disabled={isDeleting}>
-        <TrashIcon className="delete-icon" />
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button variant="outline" disabled={isDeleting}>
+            <TrashIcon className="delete-icon" />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-white">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the
+              file.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

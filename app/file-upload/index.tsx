@@ -4,6 +4,8 @@ import type { PutBlobResult } from "@vercel/blob";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
+import { toast } from "sonner";
+
 import "./styles.css";
 
 export default function FileUpload() {
@@ -24,10 +26,15 @@ export default function FileUpload() {
       throw new Error("No file selected");
     }
     const file = inputFileRef.current.files[0];
-    const fileMb = file.size / 1024 ** 2;
-
+    if (!file) {
+      return;
+    }
+    const fileMb = file?.size / 1024 ** 2;
     if (fileMb > 5) {
-      throw new Error("File size cannot be greater than 5mb");
+      toast("Error uploading file!", {
+        description: "File size cannot be greater than 5mb",
+      });
+      return;
     }
     try {
       setIsFileUploading(true);
@@ -42,6 +49,9 @@ export default function FileUpload() {
       router.refresh();
       sendThirdPartyCall();
     } catch (err) {
+      toast("Error uploading file!", {
+        description: "Some error occured when uploading the file",
+      });
       sendThirdPartyCall();
     }
     setIsFileUploading(false);

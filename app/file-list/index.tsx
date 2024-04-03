@@ -2,7 +2,7 @@ import { list } from "@vercel/blob";
 
 // Components
 import DeleteButton from "./delete-button";
-import EditButton from "./edit-button";
+// import EditButton from "./edit-button";
 import DownloadButton from "./dowload-button";
 
 const styles = {

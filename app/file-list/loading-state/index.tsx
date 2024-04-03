@@ -1,14 +1,13 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
+import "./styles.css";
 
 export default function LoadingState() {
   return (
-    <div className="flex items-center space-x-4">
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
+    <div className="loading">
+      <span className="loading__dot"></span>
+      <span className="loading__dot"></span>
+      <span className="loading__dot"></span>
     </div>
   );
 }

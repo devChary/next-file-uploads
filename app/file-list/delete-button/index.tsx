@@ -14,6 +14,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
+import LoadingState from "../loading-state";
 
 import { TrashIcon } from "@radix-ui/react-icons";
 
@@ -31,12 +33,16 @@ export default function DeleteButton({ url }: IProps) {
       setIsDeleting(true);
       await fetch(`/api/file`, {
         method: "DELETE",
+        next: { revalidate: 3600 },
         body: JSON.stringify({
           url,
         }),
       });
       router.refresh();
     } catch (e) {
+      toast("Error deleting file!", {
+        description: "Some error occured when deleting the file",
+      });
       console.log(e);
     }
     setIsDeleting(false);
@@ -47,7 +53,11 @@ export default function DeleteButton({ url }: IProps) {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button variant="outline" disabled={isDeleting}>
-            <TrashIcon className="delete-icon" />
+            {isDeleting ? (
+              <LoadingState />
+            ) : (
+              <TrashIcon className="delete-icon" />
+            )}
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="bg-white">

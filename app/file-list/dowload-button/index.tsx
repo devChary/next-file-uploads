@@ -15,10 +15,8 @@ export default function DownloadButton({ downloadUrl, pathname }: any) {
   };
 
   return (
-    <div className="actions">
-      <Button onClick={downloadFile} variant="outline">
-        <DownloadIcon className="download-icon" />
-      </Button>
-    </div>
+    <Button onClick={downloadFile} variant="outline">
+      <DownloadIcon className="download-icon" />
+    </Button>
   );
 }

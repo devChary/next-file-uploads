@@ -43,39 +43,33 @@ export default function DeleteButton({ url }: IProps) {
       toast("Error deleting file!", {
         description: "Some error occured when deleting the file",
       });
-      console.log(e);
     }
     setIsDeleting(false);
   };
 
   return (
-    <div>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant="outline" disabled={isDeleting}>
-            {isDeleting ? (
-              <LoadingState />
-            ) : (
-              <TrashIcon className="delete-icon" />
-            )}
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="bg-white">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              file.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
-              Continue
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" disabled={isDeleting}>
+          {isDeleting ? (
+            <LoadingState />
+          ) : (
+            <TrashIcon className="delete-icon" />
+          )}
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="bg-white">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete the file.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

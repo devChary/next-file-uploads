@@ -2,29 +2,35 @@ import { list } from "@vercel/blob";
 
 // Components
 import DeleteButton from "./delete-button";
-// import EditButton from "./edit-button";
+import EditButton from "./edit-button";
 import DownloadButton from "./dowload-button";
+
+const commonStyles = {
+  display: "flex",
+  alignItems: "center",
+};
 
 const styles = {
   listItems: {
-    display: "flex",
+    ...commonStyles,
     justifyContent: "space-between",
-    alignItems: "center",
     border: `1px solid black`,
     borderRadius: "4px",
     marginBottom: "12px",
     padding: "8px 12px",
   },
   actions: {
-    display: "flex",
+    ...commonStyles,
     justifyContent: "space-around",
-    alignItems: "center",
     gap: "20px",
   },
   emptyState: {
-    display: "flex",
+    ...commonStyles,
     justifyContent: "center",
-    alignItems: "center",
+  },
+  leftSection: {
+    ...commonStyles,
+    gap: "20px",
   },
 };
 
@@ -40,10 +46,13 @@ export default async function FileList() {
       {blobs.map(({ url, pathname, downloadUrl }) => {
         return (
           <div key={url} style={styles.listItems}>
-            <h2> {pathname}</h2>
+            <div style={styles.leftSection}>
+              {/* Next Image doesn't work with server components */}
+              <img src={url} width={25} height={25} alt={pathname} />
+              <h2> {pathname}</h2>
+            </div>
             <div style={styles.actions}>
-              {/* <EditButton /> */}{" "}
-              {/* Didn't find a method to edit the name of the file in Vercel Blob */}
+              <EditButton pathname={pathname} />
               <DownloadButton dowloadUrl={downloadUrl} pathname={pathname} />
               <DeleteButton url={url} />
             </div>

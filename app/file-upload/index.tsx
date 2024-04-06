@@ -46,6 +46,9 @@ export default function FileUpload() {
       const newBlob = (await response.json()) as PutBlobResult;
 
       setBlob(newBlob);
+      toast("File Upload Successful", {
+        description: "Successfully uploaded file to store",
+      });
       router.refresh();
       sendThirdPartyCall();
     } catch (err) {

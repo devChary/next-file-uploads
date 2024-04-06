@@ -36,8 +36,9 @@ const styles = {
 
 export default async function FileList() {
   const { blobs } = await list();
+  console.log("🚀 ~ FileList ~ blobs:", blobs);
 
-  if (!blobs) {
+  if (!blobs.length) {
     return <div style={styles.emptyState}> No files Found!</div>;
   }
 
